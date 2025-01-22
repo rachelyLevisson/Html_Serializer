@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using Html_Serializer;
+using System.Text.RegularExpressions;
 
 async Task<string> Load(string url)
 {
@@ -13,5 +14,6 @@ var http = await Load("https://learn.malkabruk.co.il/practicode/projects/pract-2
  var noSpase=new Regex("\\s").Replace(http,"");
 
 var tab = new Regex("<(.*?)>").Split(noSpase).Where(s=>s.Length>0);
+
 Console.ReadLine();
 //Console.WriteLine(http);

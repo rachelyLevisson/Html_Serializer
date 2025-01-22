@@ -13,3 +13,5 @@ C:\Users\לויסון\Desktop\Html Serializer\Html Serializer\obj\Debug\net6.0\r
 C:\Users\לויסון\Desktop\Html Serializer\Html Serializer\obj\Debug\net6.0\Html Serializer.pdb
 C:\Users\לויסון\Desktop\Html Serializer\Html Serializer\obj\Debug\net6.0\Html Serializer.genruntimeconfig.cache
 C:\Users\לויסון\Desktop\Html Serializer\Html Serializer\obj\Debug\net6.0\ref\Html Serializer.dll
+C:\Users\לויסון\Desktop\Html Serializer\Html Serializer\bin\Debug\net6.0\JSON Files\HtmlTags.json
+C:\Users\לויסון\Desktop\Html Serializer\Html Serializer\bin\Debug\net6.0\JSON Files\HtmlVoidTags.json

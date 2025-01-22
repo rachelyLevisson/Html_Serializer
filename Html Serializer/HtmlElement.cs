@@ -10,8 +10,12 @@ namespace Html_Serializer
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string[] Attributes { get; set; }
-        public string[] Classes { get; set; }
+        public List<string> Attributes { get; set; }
+        public List<string> Classes { get; set; }
         public string InnerHtml { get; set; }
+
+
+        HtmlElement Parenst;
+        HtmlElement Children;
     }
 }
