@@ -8,13 +8,13 @@ namespace Html_Serializer
 {
     public class HtmlElement
     {
-        public int Id { get; set; }
         public string Name { get; set; }
-        public List<string> Attributes { get; set; }
+        public int Id { get; set; }
         public List<string> Classes { get; set; }
+        public List<string> Attributes { get; set; }
         public string InnerHtml { get; set; }
-        public  HtmlElement Parenst { get; set; }
 
+        public  HtmlElement Parenst { get; set; }
         public List<HtmlElement> Children{ get; set; }
 
         public IEnumerable<HtmlElement> Descendants(HtmlElement root)

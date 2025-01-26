@@ -10,10 +10,14 @@ async Task<string> LoadAsync(string url)
 }
 
 var http = await LoadAsync("https://learn.malkabruk.co.il/practicode/projects/pract-2");
+//var result = Regex.Replace(http, @"^\s*\n", "", RegexOptions.Multiline);
+var tab = new Regex("<(.*?)>").Split(http);
 
-var noSpase = new Regex("\\s").Replace(http, "");
+var cleanedLines = Array.ConvertAll(tab, tab => Regex.Replace(tab, @"!--.*?--", ""));
+var res = Array.FindAll(cleanedLines, cleanedLines => !Regex.IsMatch(cleanedLines, @"^\s*$"));
 
-var tab = new Regex("<([^\\s]*?)>").Split(noSpase).Where(s => s.Length > 0);
+//var noSpase = new Regex("\\s").Replace(http, "");
+
 
 
 
