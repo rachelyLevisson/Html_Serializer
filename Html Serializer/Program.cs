@@ -10,54 +10,64 @@ async Task<string> LoadAsync(string url)
 }
 
 var http = await LoadAsync("https://learn.malkabruk.co.il/practicode/projects/pract-2");
-//var result = Regex.Replace(http, @"^\s*\n", "", RegexOptions.Multiline);
 var tab = new Regex("<(.*?)>").Split(http);
 
 var cleanedLines = Array.ConvertAll(tab, tab => Regex.Replace(tab, @"!--.*?--", ""));
 var res = Array.FindAll(cleanedLines, cleanedLines => !Regex.IsMatch(cleanedLines, @"^\s*$"));
 
-//var noSpase = new Regex("\\s").Replace(http, "");
-
-
-
-
-#region build tree
-//the cut thestring....
-string t = "";
 
 HtmlElement root = new HtmlElement();
 
 HtmlElement current = new HtmlElement();
-//string part
+var t = Regex.Match(res[0], @"^\\s+").ToString();
+int i = 0;
+
 while (t != "/html")
 {
 
-    if (t == "/")
+    if (t[0] == '/')
     {
         current = current.Parenst;
     }
-    if ((HtmlHelper.Singleton.Tags).Contains(t))
+    else
     {
-        current.Children.Add(new HtmlElement());
-        current.Name = t;
-
-        //  </br>...
-        if (!(HtmlHelper.Singleton.CloseTag.Contains(t)))
+        if ((HtmlHelper.Singleton.Tags).Contains(t))
         {
-            
+            current.Children.Add(new HtmlElement());
+            current.Name = t;
+            //פרוק ויצירת Attributes
+            res[i] = res[i].Substring(t.Length).TrimStart();
+            if (res[i].Contains("class"))
+            {
+                t = Regex.Match(res[i], @"class=""([^""]+)""").ToString();
+                var allClass = t.Split();
+                for (int j = 0; j < allClass.Length; j++)
+                {
+                    current.Classes.Add(allClass[j]);
+                }
+            }
+            if (res[i].Contains("id"))
+                current.Id = Regex.Match(res[i], @"id=""([^""]+)""").ToString();
+            var allAttri = Regex.Matches(res[i], "\"([^\"]*)\"").ToString().Split();
+            foreach (var item in allAttri)
+            {
+                current.Attributes.Add(item);
+            }
+
+            if (!(HtmlHelper.Singleton.CloseTag.Contains(t)) && (res[i][res[i].Length - 1] != '/'))
+            {
+                current = new HtmlElement();
+            }
+
         }
 
+        else
+        {
+            current.InnerHtml = t;
+        }
     }
-    //  if(Atribute)
-
-    else // All... how...?
-    {
-        current.InnerHtml = t;
-    }
-    //agian part....
+    i++;
+    t = Regex.Match(res[i], @"^\\s+").ToString();
 }
-
-#endregion
-
 Console.ReadLine();
-//Console.WriteLine(http);
+

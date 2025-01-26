@@ -9,7 +9,7 @@ namespace Html_Serializer
     public class HtmlElement
     {
         public string Name { get; set; }
-        public int Id { get; set; }
+        public string Id { get; set; }
         public List<string> Classes { get; set; }
         public List<string> Attributes { get; set; }
         public string InnerHtml { get; set; }
@@ -25,17 +25,19 @@ namespace Html_Serializer
             {
                 yield return q.Dequeue();
                 
-                //run to children  == not good....
                 while(this.Children.Count > 0)
                 {
-                    q.Enqueue(this.Children.First());//?
+                    q.Enqueue(this.Children.First());
                 }
             }
         }
 
-        public List<HtmlElement> Ancestors()
+        public IEnumerable<HtmlElement> Ancestors(HtmlElement current)
         {
-            return new List<HtmlElement>();
+            while (current != null)
+            {
+                yield return current.Parenst;
+            }
         }
     }
 }
